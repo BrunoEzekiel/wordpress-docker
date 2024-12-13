@@ -14,7 +14,7 @@ Este projeto visa a configuração de um ambiente na AWS para hospedar uma aplic
    - Acesso ao Load Balancer
 
 ### Docker:
-1. **Instalação do Docker ou Containerd**: Instale o Docker ou Containerd na instância EC2.
+1. **Instalação do Docker: Instale o Docker na instância EC2.
    - Para instalar o Docker, siga as instruções da [documentação oficial](https://docs.docker.com/get-docker/).
 2. **Verificação de Funcionamento**: Verifique se o Docker está funcionando corretamente com o comando:
    ```bash
