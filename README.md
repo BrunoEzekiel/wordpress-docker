@@ -1,4 +1,5 @@
-#imagem da logo da compasso.![logo-compass](https://github.com/user-attachments/assets/9f35adf0-b239-4af1-b78a-fb37763e68f4)
+
+![logo-compass](https://github.com/user-attachments/assets/9f35adf0-b239-4af1-b78a-fb37763e68f4)
 
 
 # Projeto de Implantação de Ambiente na AWS com Docker e WordPress
