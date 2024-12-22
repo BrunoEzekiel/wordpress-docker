@@ -1,9 +1,10 @@
 
-![logo-compass](https://github.com/user-attachments/assets/9f35adf0-b239-4af1-b78a-fb37763e68f4)
-
 
 # Projeto de Implantação de Ambiente na AWS com Docker e WordPress
 imagen da arquetera aqui.
+![logo-compass](https://github.com/user-attachments/assets/9f35adf0-b239-4af1-b78a-fb37763e68f4)
+
+
 ![arq](https://github.com/user-attachments/assets/ffde7b19-2bb9-4a79-97c9-2667035c0f62)
 
 ## 1. Introdução
