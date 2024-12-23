@@ -20,12 +20,12 @@ Este projeto descreve a implantação de um ambiente AWS para hospedar uma aplic
 
 ---
 
-#Etapas para Criar uma VPC para Load Balancer
+## Etapas para Criar uma VPC para Load Balancer
 
 1. Criar a VPC
 
-Acesse o AWS Management Console e navegue até o serviço VPC.
-Clique em Create VPC.
+- Acesse o AWS Management Console e navegue até o serviço VPC.
+- Clique em Create VPC.
 
 Preencha os detalhes:  
 
@@ -36,7 +36,7 @@ Clique em Create VPC.
 
 ---
 
-##2. Criar Subnets
+### 2. Criar Subnets
 O Load Balancer precisa de subnets públicas para acessar a internet e privadas para os recursos internos.
 
 ### Crie subnets públicas:
@@ -50,19 +50,19 @@ O Load Balancer precisa de subnets públicas para acessar a internet e privadas 
   
 ### Crie subnets privadas:
 
-  *Siga o mesmo processo das subnets públicas, mas sem ativar a opção de IP   
-   público.
+  - *Siga o mesmo processo das subnets públicas, mas sem ativar a opção de IP   
+    público.
    
-  *Use intervalos de CIDR diferentes (ex.: 10.0.2.0/24 e 10.0.3.0/24).
+  - *Use intervalos de CIDR diferentes (ex.: 10.0.2.0/24 e 10.0.3.0/24).
   
-3. Configurar o Internet Gateway
+### Configurar o Internet Gateway
    Vá em Internet Gateways e clique em Create internet gateway.
    Nomeie o gateway e clique em Create.
    Anexe o Internet Gateway à sua VPC:
     Selecione o gateway criado, clique em Actions → Attach to VPC, e escolha sua 
     VPC.
     
-4. Configurar Tabelas de Roteamento
+### Configurar Tabelas de Roteamento
    Vá em Route Tables e selecione a tabela de roteamento associada à sua VPC.
    
    Para subnets públicas:
@@ -71,18 +71,18 @@ O Load Balancer precisa de subnets públicas para acessar a internet e privadas 
        Target: O Internet Gateway criado.
     Associe a tabela às subnets públicas.
     
-Para subnets privadas:
+   Para subnets privadas:
       Certifique-se de que as subnets privadas utilizam um NAT Gateway.
       
-5. Criar o NAT Gateway
-  Vá em NAT Gateways e clique em Create NAT Gateway.
-  Escolha uma subnet pública e associe um Elastic IP.
-  Após criar o NAT Gateway, configure uma tabela de roteamento para as subnets 
-  privadas:
-     Destination: 0.0.0.0/0.
-     Target: O NAT Gateway criado.
+### Criar o NAT Gateway
+    Vá em NAT Gateways e clique em Create NAT Gateway.
+    Escolha uma subnet pública e associe um Elastic IP.
+    Após criar o NAT Gateway, configure uma tabela de roteamento para as subnets 
+    privadas:
+    Destination: 0.0.0.0/0.
+    Target: O NAT Gateway criado.
 
-###. Estrutura da VPC
+### Estrutura da VPC
 
 ### Configuração Geral
 - **VPC:** Padrão, com NAT Gateway configurado.
@@ -91,7 +91,7 @@ Para subnets privadas:
   - 2 públicas para recursos expostos (Load Balancer e NAT Gateway).
   - 2 privadas para instâncias EC2 e RDS.
 
-![Diagrama da VPC]()
+![Diagrama da VPC](img/rede_sg.jpg/)
 
 #### Subnets Configuradas:
 | Subnet        | Tipo       | Zona de Disponibilidade | Tabela de Roteamento   |
@@ -107,9 +107,11 @@ Para subnets privadas:
 
 ---
 
-## 4. Componentes da Infraestrutura
+## Componentes da Infraestrutura
 
-### 4.1 EC2
+### Security grups (Grupos de segura) Firewall
+
+### EC2
 Passo a Passo para Criar uma Instância EC2
 
 1. Acesse o Console AWS
@@ -323,7 +325,8 @@ Acesse o Console da AWS:
 
 Entre no console da AWS e vá para o serviço EC2.
 
-Passo 2: Criar um Grupo de Alvo
+### Passo 2: Criar um Grupo de Alvo
+
 Navegar até Grupos de Alvo:
 
 No painel de navegação, selecione "Target Groups".
@@ -354,7 +357,8 @@ Clique em "Include as pending below".
 
 Clique em "Create target group".
 
-Passo 3: Criar o Load Balancer
+### Passo 3: Criar o Load Balancer
+
 Navegar até Load Balancers:
 
 No painel de navegação, selecione "Load Balancers".
@@ -405,7 +409,7 @@ Revise todas as configurações.
 
 Clique em "Create" para finalizar a criação do Load Balancer.
 
-Passo 4: Testar o Load Balancer
+### Passo 4: Testar o Load Balancer
 Obter o DNS do Load Balancer:
 
 No console da AWS, vá para "Load Balancers".
@@ -420,13 +424,18 @@ Verifique se o tráfego está sendo distribuído corretamente para as instância
 
 ---
 
-## 5. Configuração Técnica
+## 5. USER_DATA.SH
 
 ### Configuração do Docker Compose e wordpresss
 
 Acesse o terminal e use sua chave `chave.pem`
+` sudo chmod 400 chave.pem `
+SSH na instancia com comanado e ip  puclico da instancia
+` sudo ssh -i "diretorio da chave.pem" ubuntu@ip da instancia `
 
-Na EC2 digite os comandos para o serviço `Wordpress`, crie o arquivo `docker-compose.yml`:
+
+
+### Na EC2 digite os comandos para o serviço `Wordpress`, crie o arquivo `docker-compose.yml`:
 
 ```
 #!/bin/bash
