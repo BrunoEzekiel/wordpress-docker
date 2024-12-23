@@ -9,6 +9,8 @@
 Este projeto descreve a implantação de um ambiente AWS para hospedar uma aplicação WordPress com MySQL. A infraestrutura foi configurada com uma VPC padrão contendo NAT Gateway, duas zonas de disponibilidade (A e B), e subnets públicas e privadas para escalabilidade e segurança.
 
 ---
+![worpress](img/Worpress.jpg)
+
 
 ## 2. Requisitos
 
@@ -22,7 +24,7 @@ Este projeto descreve a implantação de um ambiente AWS para hospedar uma aplic
 
 ## Etapas para Criar uma VPC para Load Balancer
 
-1. Criar a VPC
+### Criar a VPC
 
 - Acesse o AWS Management Console e navegue até o serviço VPC.
 - Clique em Create VPC.
@@ -91,7 +93,7 @@ O Load Balancer precisa de subnets públicas para acessar a internet e privadas 
   - 2 públicas para recursos expostos (Load Balancer e NAT Gateway).
   - 2 privadas para instâncias EC2 e RDS.
 
-![Diagrama da VPC](img/rede_sg.jpg/)
+![vpc](img/vpcok.jpg)
 
 #### Subnets Configuradas:
 | Subnet        | Tipo       | Zona de Disponibilidade | Tabela de Roteamento   |
@@ -111,8 +113,12 @@ O Load Balancer precisa de subnets públicas para acessar a internet e privadas 
 
 ### Security grups (Grupos de segura) Firewall
 
+![EC2](img/EC2%201.jpg)
+
 ### EC2
 Passo a Passo para Criar uma Instância EC2
+
+![img](img/T2micro.jpg)
 
 1. Acesse o Console AWS
 Faça login no AWS Management Console.
