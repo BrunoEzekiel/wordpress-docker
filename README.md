@@ -1,3 +1,5 @@
+![logo docker](img/th.jpeg) <img src="caminho/para/a/imagem.png" alt="Descrição da Imagem" width="300"/>
+
 # Projeto de Implantação de Ambiente na AWS com Docker e WordPress
 
 ![Logo Compass](https://github.com/user-attachments/assets/9f35adf0-b239-4af1-b78a-fb37763e68f4)
@@ -9,7 +11,29 @@
 Este projeto descreve a implantação de um ambiente AWS para hospedar uma aplicação WordPress com MySQL. A infraestrutura foi configurada com uma VPC padrão contendo NAT Gateway, duas zonas de disponibilidade (A e B), e subnets públicas e privadas para escalabilidade e segurança.
 
 ---
-![worpress](img/Worpress.jpg)
+# Meu Projeto
+
+<p align="center">
+  <img src="img/th.jpeg" alt="logo docker" width="300"/>
+</p>
+
+## Introdução
+
+Este projeto visa a configuração de um ambiente na AWS para hospedar uma aplicação WordPress com MySQL como backend. A infraestrutura será montada usando **EC2**, **EFS** para armazenamento de arquivos estáticos, **RDS** para o banco de dados, e **Load Balancer** para distribuição de tráfego.
+
+## Passos
+
+1. Criar instância EC2.
+2. Instalar Docker.
+3. Configurar RDS.
+4. Configurar EFS.
+5. Configurar Load Balancer.
+
+## Recursos
+
+Para mais informações, visite [Documentação Oficial da AWS](https://aws.amazon.com/documentation/).
+
+![worpress](img/Worpress.jpg "width="100"")
 
 
 ## 2. Requisitos
