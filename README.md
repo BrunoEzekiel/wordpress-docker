@@ -29,8 +29,8 @@ Este projeto visa a configuração de um ambiente na AWS para hospedar uma aplic
 4. Criar instância EC2.
 5. Instalar Docker.
 6. Configurar Load Balancer.
-7. 
-8. 
+7. Auto Scaling
+8. Fui de cama desgraça!!!
 
 ## Recursos
 
@@ -163,7 +163,7 @@ O Security Group, no contexto da AWS (Amazon Web Services), atua como um firewal
 Os Security Groups são essenciais para manter a segurança e a integridade das suas instâncias na AWS. Se precisar de mais detalhes ou exemplos específicos, estou aqui para ajudar!
 
 ### 4.2 EFS
-![img3](img/EFS_1.jpg)
+![img3](img/EFS1.jpg)
 
 - **Uso:** Armazenamento persistente para arquivos WordPress.
 - **Montagem:** Configurado em `/mnt/efs` na instância EC2.
