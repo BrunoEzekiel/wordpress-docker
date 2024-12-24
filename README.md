@@ -115,72 +115,6 @@ O Load Balancer precisa de subnets públicas para acessar a internet e privadas 
 
 ![EC2](img/EC2%201.jpg)
 
-### EC2
-Passo a Passo para Criar uma Instância EC2
-
-![img](img/T2micro.jpg)
-
-1. Acesse o Console AWS
-Faça login no AWS Management Console.
-Na barra de pesquisa, digite EC2 e clique no serviço EC2.
-
-3. Iniciar o Assistente de Instância
-No painel EC2, clique em Launch Instances.
-Insira um Nome para a instância (ex.: my-web-server).
-
-5. Escolher a Imagem da Instância (AMI)
-Escolha a Amazon Machine Image (AMI):
-Amazon Linux 2 (recomendado para geral).
-Outras opções: Ubuntu, Windows Server, etc.
-Clique em Select na imagem desejada.
-
-7. Escolher o Tipo da Instância
-Escolha um tipo de instância, dependendo do uso:
-t2.micro ou t3.micro para fins de teste ou elegibilidade ao Free Tier.
-Instâncias maiores para cargas mais pesadas.
-Clique em Next.
-
-9. Configurar os Detalhes da Instância
-Selecione a VPC e a Subnet apropriadas.
-Auto-assign Public IP:
-Ative para dar acesso à internet (em subnets públicas).
-
-11. Adicionar Armazenamento
-Configure o armazenamento:
-Root Volume (Geral): 8 GiB padrão é suficiente para muitos casos.
-Adicione volumes adicionais, se necessário.
-Escolha o tipo de volume (ex.: General Purpose SSD - gp3).
-
-13. Configurar Security Group
-Crie um novo ou selecione um Security Group existente:
-Porta 22 (SSH): Permitir o acesso do seu IP para gerenciamento.
-Porta 80 (HTTP): Para servidores web.
-Porta 443 (HTTPS): Para acesso seguro.
-Adicione regras personalizadas conforme necessário.
-
-15. Criar Key Pair (Par de Chaves)
-Clique em Create Key Pair se ainda não tiver um.
-Salve o arquivo .pem em um local seguro (você precisará dele para login via SSH).
-Selecione o par de chaves criado.
-
-17. Revisar e Lançar
-Revise todas as configurações.
-Clique em Launch Instance.
-Acesse a página de detalhes da instância para acompanhar o status.
-
-19. Conectar à Instância
-Após a inicialização, acesse a instância:
-Clique em Connect no painel EC2.
-Use o comando SSH fornecido:
-Certifique-se de que as permissões do arquivo .pem estão configuradas:
-chmod 400 your-key.pem
-Use o comando SSH fornecido:
-ssh -i "your-key.pem" ec2-user@your-public-ip
-
-Dicas Adicionais
-Snapshots: Tire snapshots do volume EBS para backup.
-Elastic IP: Associe um Elastic IP à instância para um IP fixo.
-Monitoramento: Habilite o CloudWatch para monitorar a performance da instância.
 
 ### 4.2 EFS
 - **Uso:** Armazenamento persistente para arquivos WordPress.
@@ -322,6 +256,74 @@ Revisar e Criar:
 Revise todas as configurações.
 
 Clique em "Create database" para finalizar a criação.
+
+### EC2
+Passo a Passo para Criar uma Instância EC2
+
+![img](img/T2micro.jpg)
+
+1. Acesse o Console AWS
+Faça login no AWS Management Console.
+Na barra de pesquisa, digite EC2 e clique no serviço EC2.
+
+3. Iniciar o Assistente de Instância
+No painel EC2, clique em Launch Instances.
+Insira um Nome para a instância (ex.: my-web-server).
+
+5. Escolher a Imagem da Instância (AMI)
+Escolha a Amazon Machine Image (AMI):
+Amazon Linux 2 (recomendado para geral).
+Outras opções: Ubuntu, Windows Server, etc.
+Clique em Select na imagem desejada.
+
+7. Escolher o Tipo da Instância
+Escolha um tipo de instância, dependendo do uso:
+t2.micro ou t3.micro para fins de teste ou elegibilidade ao Free Tier.
+Instâncias maiores para cargas mais pesadas.
+Clique em Next.
+
+9. Configurar os Detalhes da Instância
+Selecione a VPC e a Subnet apropriadas.
+Auto-assign Public IP:
+Ative para dar acesso à internet (em subnets públicas).
+
+11. Adicionar Armazenamento
+Configure o armazenamento:
+Root Volume (Geral): 8 GiB padrão é suficiente para muitos casos.
+Adicione volumes adicionais, se necessário.
+Escolha o tipo de volume (ex.: General Purpose SSD - gp3).
+
+13. Configurar Security Group
+Crie um novo ou selecione um Security Group existente:
+Porta 22 (SSH): Permitir o acesso do seu IP para gerenciamento.
+Porta 80 (HTTP): Para servidores web.
+Porta 443 (HTTPS): Para acesso seguro.
+Adicione regras personalizadas conforme necessário.
+
+15. Criar Key Pair (Par de Chaves)
+Clique em Create Key Pair se ainda não tiver um.
+Salve o arquivo .pem em um local seguro (você precisará dele para login via SSH).
+Selecione o par de chaves criado.
+
+17. Revisar e Lançar
+Revise todas as configurações.
+Clique em Launch Instance.
+Acesse a página de detalhes da instância para acompanhar o status.
+
+19. Conectar à Instância
+Após a inicialização, acesse a instância:
+Clique em Connect no painel EC2.
+Use o comando SSH fornecido:
+Certifique-se de que as permissões do arquivo .pem estão configuradas:
+chmod 400 your-key.pem
+Use o comando SSH fornecido:
+ssh -i "your-key.pem" ec2-user@your-public-ip
+
+Dicas Adicionais
+Snapshots: Tire snapshots do volume EBS para backup.
+Elastic IP: Associe um Elastic IP à instância para um IP fixo.
+Monitoramento: Habilite o CloudWatch para monitorar a performance da instância.
+
 
 ### 4.4 Load Balancer
 - **Tipo:** Application Load Balancer.
