@@ -1,4 +1,4 @@
-![logo docker](img/th.jpeg) <img src="caminho/para/a/imagem.png" alt="Descrição da Imagem" width="300"/>
+<img src="img/Amazon_Web_Services-Logo.wine.png" alt="Descrição da Imagem" width="150"/>
 
 # Projeto de Implantação de Ambiente na AWS com Docker e WordPress
 
@@ -14,7 +14,7 @@ Este projeto descreve a implantação de um ambiente AWS para hospedar uma aplic
 # Meu Projeto
 
 <p align="center">
-  <img src="img/th.jpeg" alt="logo docker" width="300"/>
+  <img src="img/th.jpeg" alt="logo docker" width="200"/>
 </p>
 
 ## Introdução
@@ -23,17 +23,22 @@ Este projeto visa a configuração de um ambiente na AWS para hospedar uma aplic
 
 ## Passos
 
-1. Criar instância EC2.
-2. Instalar Docker.
+1. Configurar VPC
+2. Configurar EFS.
 3. Configurar RDS.
-4. Configurar EFS.
-5. Configurar Load Balancer.
+4. Criar instância EC2.
+5. Instalar Docker.
+6. Configurar Load Balancer.
+7. 
+8. 
 
 ## Recursos
 
-Para mais informações, visite [Documentação Oficial da AWS](https://aws.amazon.com/documentation/).
+<p align="center">
+  <img src="img/Amazon_Web_Services-Logo.wine.png" alt="logo aws" width="200"/>
+</p>
 
-![worpress](img/Worpress.jpg "width="100"")
+Para mais informações, visite [Documentação Oficial da AWS](https://aws.amazon.com/documentation/).
 
 
 ## 2. Requisitos
@@ -137,10 +142,29 @@ O Load Balancer precisa de subnets públicas para acessar a internet e privadas 
 
 ### Security grups (Grupos de segura) Firewall
 
-![EC2](img/EC2%201.jpg)
+O Security Group, no contexto da AWS (Amazon Web Services), atua como um firewall virtual para controlar o tráfego de entrada e saída das instâncias EC2 (Elastic Compute Cloud). Aqui está uma descrição detalhada da sua função:
 
+
+![img](img/EC2_1.jpg)
+
+**Resumo:** 
+
+**Segurança:** Protege suas instâncias EC2 controlando o tráfego de rede.
+
+**Flexibilidade:** Permite configurações específicas para diferentes tipos de tráfego.
+
+**Stateful:** Regras stateful facilitam a gestão do tráfego de resposta.
+
+**Links Úteis**
+
+- [Documentação Oficial dos Security Groups da AWS](https://docs.aws.amazon.com/pt_br/vpc/latest/userguide/VPC_SecurityGroups.html)
+
+
+Os Security Groups são essenciais para manter a segurança e a integridade das suas instâncias na AWS. Se precisar de mais detalhes ou exemplos específicos, estou aqui para ajudar!
 
 ### 4.2 EFS
+![img3](img/EFS_1.jpg)
+
 - **Uso:** Armazenamento persistente para arquivos WordPress.
 - **Montagem:** Configurado em `/mnt/efs` na instância EC2.
 - 
@@ -156,51 +180,56 @@ O sistema será criado com as subnets disponíveis na VPC selecionada.
 2. Configurar o EFS
 Após criar o EFS, configure as opções de rede e segurança:
 
-a. Configuração de Rede
+- a. Configuração de Rede
 No painel do EFS, clique no sistema de arquivos recém-criado.
 Vá para a aba Network e configure os Mount Targets:
 Verifique se cada subnet associada ao EFS está configurada.
 Certifique-se de que os Security Groups associados permitem o tráfego NFS:
 Adicione uma regra no Security Group para permitir tráfego na porta 2049 (protocolo NFS).
 
-b. Configuração do Access Point (opcional)
+- b. Configuração do Access Point (opcional)
 Na aba Access Points, clique em Create Access Point.
 Configure permissões e diretórios padrão (ex.: /efs-data).
 Clique em Create.
 
-4. Montar o EFS na Instância EC2
-a. Instale o Cliente NFS
+### Montar o EFS na Instância EC2
+- a. Instale o Cliente NFS
 Certifique-se de que o cliente NFS está instalado na instância EC2:
-
+```
 sudo apt update
 sudo apt install -y nfs-common
 sudo mkdir -p /efs/wordpress
-
-b. Monte o EFS
+```
+- b. Monte o EFS
 No console EFS, clique em Attach no sistema de arquivos.
 Copie o comando de montagem gerado (exemplo):
+```
 sudo mount -t nfs -o vers=4.1 fs-<ID>.efs.<região>.amazonaws.com:/ /mnt/efs
-
+```
 Crie o ponto de montagem na EC2: (modifique o caminho)
+``` 
 sudo mkdir -p /mnt/efs
 sudo mount -t nfs -o vers=4.1 fs-<ID-EFS>.efs.<REGIÃO>.amazonaws.com:/ /efs/wordpress
-
-c. Persistência de Montagem
+```
+- c. Persistência de Montagem
 Adicione o EFS ao arquivo /etc/fstab para montagem automática:
 
 echo "fs-<ID-EFS>.efs.<REGIÃO>.amazonaws.com:/ /mnt/efs nfs defaults 0 0" | sudo tee -a /etc/fstab
 
-5. Testar o EFS
+### Testar o EFS
 Navegue até o ponto de montagem:
-
+```
 cd /mnt/efs
-Crie um arquivo de teste:
+# Crie um arquivo de teste:
 
 sudo touch test-file.txt
 ls -l
+```
 Se o arquivo for criado com sucesso, o EFS está funcionando corretamente.
 
-Dicas e Boas Práticas
+![mout](img/mout.jpg)
+
+<i>Dicas e Boas Práticas
 Performance Modes:
 General Purpose: Para uso geral.
 Max I/O: Para sistemas com altas taxas de throughput.
@@ -210,8 +239,9 @@ Provisioned: Para throughput consistente.
 Backup e Segurança:
 Use o AWS Backup para snapshots automáticos.
 Configure regras de segurança nos Security Groups.
+</i>
+### RDS ( BANCO DE DADOS )
 
-### 4.3 RDS
 - **Banco de Dados:** MySQL.
 - **Segurança:** Acesso restrito às subnets privadas.
 - **Public Access:** Desativado para maior segurança.
@@ -263,7 +293,9 @@ Public Access: Defina se a instância será acessível publicamente (recomendado
 
 VPC Security Group: Selecione ou crie um grupo de segurança que permita o tráfego na porta 3306 (para MySQL).
 
-Passo 4: Configurações Adicionais
+![img2](img/DRS1.jpg)
+
+### Configurações Adicionais
 Configurações de Banco de Dados:
 
 Database Name: Dê um nome ao banco de dados.
@@ -274,7 +306,8 @@ Monitoring: Ative o monitoramento aprimorado se necessário.
 
 Maintenance: Configure a janela de manutenção.
 
-Passo 5: Criar a Instância
+Criar a Instância
+
 Revisar e Criar:
 
 Revise todas as configurações.
@@ -284,7 +317,6 @@ Clique em "Create database" para finalizar a criação.
 ### EC2
 Passo a Passo para Criar uma Instância EC2
 
-![img](img/T2micro.jpg)
 
 1. Acesse o Console AWS
 Faça login no AWS Management Console.
@@ -300,11 +332,15 @@ Amazon Linux 2 (recomendado para geral).
 Outras opções: Ubuntu, Windows Server, etc.
 Clique em Select na imagem desejada.
 
+![img](img/lista_imagens.jpg)
+
 7. Escolher o Tipo da Instância
 Escolha um tipo de instância, dependendo do uso:
 t2.micro ou t3.micro para fins de teste ou elegibilidade ao Free Tier.
 Instâncias maiores para cargas mais pesadas.
 Clique em Next.
+
+![img](img/T2micro.jpg)
 
 9. Configurar os Detalhes da Instância
 Selecione a VPC e a Subnet apropriadas.
@@ -324,10 +360,19 @@ Porta 80 (HTTP): Para servidores web.
 Porta 443 (HTTPS): Para acesso seguro.
 Adicione regras personalizadas conforme necessário.
 
+![img](img/EC2_1.jpg)
+
 15. Criar Key Pair (Par de Chaves)
 Clique em Create Key Pair se ainda não tiver um.
 Salve o arquivo .pem em um local seguro (você precisará dele para login via SSH).
 Selecione o par de chaves criado.
+
+![img](img/Key_par.jpg)
+
+
+**Scripts de automação**
+
+![user.date](img/adicionando_user.data.jpg)
 
 17. Revisar e Lançar
 Revise todas as configurações.
@@ -343,19 +388,24 @@ chmod 400 your-key.pem
 Use o comando SSH fornecido:
 ssh -i "your-key.pem" ec2-user@your-public-ip
 
+Acesse o terminal e use sua chave `chave.pem`
+` sudo chmod 400 chave.pem `
+SSH na instancia com comanado e ip  puclico da instancia
+` sudo ssh -i "diretorio da chave.pem" ubuntu@ip da instancia `
+
+![EC2](img/conetando_instacia.jpg)
+<p align="center"><i>Amazon linux 2023<i></p>
+
+
 Dicas Adicionais
 Snapshots: Tire snapshots do volume EBS para backup.
 Elastic IP: Associe um Elastic IP à instância para um IP fixo.
 Monitoramento: Habilite o CloudWatch para monitorar a performance da instância.
 
 ## 5. USER_DATA.SH
+![user.date](img/adicionando_user.data.jpg)
 
 ### Configuração do Docker Compose e wordpresss
-
-Acesse o terminal e use sua chave `chave.pem`
-` sudo chmod 400 chave.pem `
-SSH na instancia com comanado e ip  puclico da instancia
-` sudo ssh -i "diretorio da chave.pem" ubuntu@ip da instancia `
 
 
 
@@ -549,3 +599,106 @@ Abra um navegador e acesse o DNS name do Load Balancer.
 Verifique se o tráfego está sendo distribuído corretamente para as instâncias EC2.
 
 ---
+## Passo a Passo para Configurar o Auto Scaling pelo Console AWS
+
+### Criar uma Launch Template
+Acesse o Console da AWS:
+
+Faça login no Console de Gerenciamento da AWS.
+
+Navegue até EC2:
+
+No menu de serviços, selecione EC2.
+
+Crie uma Launch Template:
+
+No painel de navegação, clique em Launch Templates.
+
+Clique em Create launch template.
+
+Dê um nome à sua launch template e configure as especificações das instâncias, como a imagem AMI, tipo de instância, VPC, e outras configurações necessárias.
+
+Clique em Create launch template.
+
+### Criar um Auto Scaling Group
+Navegue até Auto Scaling Groups:
+
+No painel de navegação do EC2, clique em Auto Scaling Groups.
+
+Criar um Novo Auto Scaling Group:
+
+Clique em Create Auto Scaling group.
+
+Selecione a launch template que você criou anteriormente.
+
+Dê um nome ao Auto Scaling group.
+
+Configurar a Capacidade do Grupo:
+
+Defina a Capacidade Desejada, Capacidade Mínima e Capacidade Máxima de instâncias.
+
+Configurar a Rede e Sub-redes:
+
+Selecione a VPC e sub-redes onde as instâncias irão rodar.
+
+Configurar Regras de Segurança (Security Groups):
+
+Selecione ou crie regras de segurança que controlam o tráfego de rede para suas instâncias.
+
+Adicionar Load Balancing (Opcional):
+
+Se desejar, você pode associar um Load Balancer para distribuir o tráfego entre as instâncias.
+
+Configurar Regras de Verificação de Saúde:
+
+Defina as verificações de saúde que determinam se as instâncias estão funcionando corretamente.
+
+Configurar Políticas de Escalonamento:
+
+Adicione políticas de escalonamento baseadas em métricas (como utilização de CPU) ou em horários específicos.
+
+Você pode configurar essas políticas na seção de Scaling policies.
+
+Revisar e Criar o Auto Scaling Group:
+
+Revise todas as configurações e clique em Create Auto Scaling group.
+
+Monitoramento e Ajustes
+Monitorar o Auto Scaling Group:
+
+Acesse o console do Auto Scaling e revise as atividades e o desempenho do grupo.
+
+Ajuste as políticas de escalonamento conforme necessário para otimizar o desempenho e os custos.
+
+Benefícios do Auto Scaling
+Escalabilidade Automática: Ajusta automaticamente a capacidade com base na demanda.
+
+Redução de Custos: Mantém apenas o número necessário de instâncias em execução.
+
+Alta Disponibilidade: Garante a disponibilidade do aplicativo mesmo durante picos de carga.
+
+## Recursos Adicionais
+
+- [Guia de Otimização de Auto Scaling da AWS](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ts-as-instancelaunchhealth.html)
+
+- [Introdução ao Amazon CloudWatch](https://docs.aws.amazon.com/pt_br/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)
+
+- [Práticas Recomendadas de Segurança na AWS](https://aws.amazon.com/pt/architecture/security-identity-compliance/)
+
+![user.date](img/Worpress.jpg)
+
+<p float="left">
+  <img src="img/Amazon_Web_Services-Logo.wine.png" alt="Logo AWS" width="90"/>
+  <img src="img/th1.jpeg" alt="Outra Imagem" width="90"/>
+  <img src="img/th.jpeg" alt="Outra Imagem" width="50"/>
+  <img src="img/ubuntu_logo.jpg" alt="Outra Imagem" width="70"/>
+  <img src="img/compasso_logo.jpg" alt="Outra Imagem" width="70"/>
+</p>
+
+
+
+<p><h2>
+Compasso UOL 2024</h2>
+Trilha DevOps<b> Out/24
+<img src="img/compasso_logo.jpg" alt="Logo AWS" width="150" style="float: right; margin-left: 10px;"/>
+<p>
