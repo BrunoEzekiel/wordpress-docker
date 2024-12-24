@@ -697,7 +697,6 @@ Alta Disponibilidade: Garante a disponibilidade do aplicativo mesmo durante pico
 
 
 
-<p><h2>
-Compasso UOL 2024</h2>
+<h2>Compasso UOL 2024</h2>
+
 <img src="img/compasso_logo.jpg" alt="Logo AWS" width="150" style="float: right; margin-left: 10px;"/>
-<p>
