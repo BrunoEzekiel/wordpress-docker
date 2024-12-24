@@ -230,14 +230,21 @@ Se o arquivo for criado com sucesso, o EFS está funcionando corretamente.
 ![mout](img/mout.jpg)
 
 <i>Dicas e Boas Práticas
+
 Performance Modes:
+
 General Purpose: Para uso geral.
+
 Max I/O: Para sistemas com altas taxas de throughput.
+
 Throughput Modes:
 Bursting: Escala automaticamente com base no uso.
+
 Provisioned: Para throughput consistente.
+
 Backup e Segurança:
 Use o AWS Backup para snapshots automáticos.
+
 Configure regras de segurança nos Security Groups.
 </i>
 ### RDS ( BANCO DE DADOS )
